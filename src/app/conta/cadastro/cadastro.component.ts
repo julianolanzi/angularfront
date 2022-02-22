@@ -9,7 +9,7 @@ import { CustomValidators } from 'ngx-custom-validators';
 
 import { Usuario } from '../models/usuario';
 import { ContaService } from '../services/conta.service';
-import { DisplayMessage, GenericValidator, ValidationMessages } from '../utils/generic-form-validation';
+import { DisplayMessage, GenericValidator, ValidationMessages } from '../../utils/generic-form-validation';
 
 
 @Component({
@@ -85,11 +85,16 @@ export class CadastroComponent implements OnInit, AfterViewInit {
   }
 
   processarSucesso(response: any){
+    this.cadastroForm.reset();
+    this.errors = [];
 
+    this.contaService.LocalStorage.salvarDadosLocaisUsuario(response);
+    
+    this.router.navigate(['/home']);
   }
 
   processarFalha(fail: any){
-    
+    this.errors = fail.error.errors;
   }
 
 }
