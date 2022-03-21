@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
 import { Observable, fromEvent, merge } from 'rxjs';
 
 import { CustomValidators } from 'ngx-custom-validators';
+import { ToastrService } from 'ngx-toastr';
 
 import { Usuario } from '../models/usuario';
 import { ContaService } from '../services/conta.service';
 import { DisplayMessage, GenericValidator, ValidationMessages } from '../../utils/generic-form-validation';
-
 
 @Component({
   selector: 'app-cadastro',
@@ -28,9 +28,12 @@ export class CadastroComponent implements OnInit, AfterViewInit {
   genericValidator: GenericValidator;
   displayMessage: DisplayMessage = {};
 
+  mudancasNaoSalvas: boolean;
+
   constructor(private fb: FormBuilder,
     private contaService: ContaService,
-    private router: Router,) {
+    private router: Router,
+    private toaster: ToastrService) {
 
     this.validationMessages = {
       email: {
@@ -69,6 +72,7 @@ export class CadastroComponent implements OnInit, AfterViewInit {
 
     merge(...controlBlurs).subscribe(() => {
       this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
+      this.mudancasNaoSalvas = true;
     });
   }
 
@@ -81,6 +85,8 @@ export class CadastroComponent implements OnInit, AfterViewInit {
         sucesso => {this.processarSucesso(sucesso)},
         falha => {this.processarFalha(falha)}
       );
+      
+      this.mudancasNaoSalvas = false
     }
   }
 
@@ -89,12 +95,19 @@ export class CadastroComponent implements OnInit, AfterViewInit {
     this.errors = [];
 
     this.contaService.LocalStorage.salvarDadosLocaisUsuario(response);
-    
-    this.router.navigate(['/home']);
+
+    let toast =  this.toaster.success('Registro realizado com sucesso!', 'Bem Vindo ;)');
+
+    if(toast){
+      toast.onHidden.subscribe(() => {
+        this.router.navigate(['/home']);
+      });
+    }
   }
 
   processarFalha(fail: any){
     this.errors = fail.error.errors;
+    this.toaster.error('Ocorreu um erro!', 'Opa ;(')
   }
 
 }

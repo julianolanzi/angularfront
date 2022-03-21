@@ -11,6 +11,7 @@ import { ContaAppComponent } from './conta.app.component';
 import { RouterModule } from '@angular/router';
 import { ContaService } from './services/conta.service';
 import { CustomFormsModule } from 'ngx-custom-validators';
+import { ContaGuard } from './services/conta.guard';
 
 
 
@@ -32,7 +33,8 @@ import { CustomFormsModule } from 'ngx-custom-validators';
     CustomFormsModule,
   ],
   providers: [
-    ContaService
+    ContaService,
+    ContaGuard
   ]
 })
 export class ContaModule { }
