@@ -8,8 +8,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavegacaoModule } from './navegacao/navegacao.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ErrorInterceptor } from './services/error.handler.service';
+
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+];
 
 @NgModule({
   declarations: [
@@ -25,7 +30,7 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
