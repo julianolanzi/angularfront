@@ -9,6 +9,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuLoginComponent } from "./menu-login/menu-login.component";
 import { AcessoNegadoComponent } from "./acesso-negado/acesso-negado.component";
+import { ProdutoAppComponent } from "../produto/produto.app.component";
 
 @NgModule({
     declarations: [
@@ -17,7 +18,7 @@ import { AcessoNegadoComponent } from "./acesso-negado/acesso-negado.component";
         HomeComponent,
         FooterComponent,
         NotFoundComponent,
-        AcessoNegadoComponent
+        AcessoNegadoComponent,
     ],
     imports: [
         CommonModule,
@@ -30,7 +31,7 @@ import { AcessoNegadoComponent } from "./acesso-negado/acesso-negado.component";
         HomeComponent,
         FooterComponent,
         NotFoundComponent,
-        AcessoNegadoComponent
+        AcessoNegadoComponent,
     ]
 })
 export class NavegacaoModule{}
