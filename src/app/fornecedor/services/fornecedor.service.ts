@@ -42,6 +42,13 @@ export class FornecedorService extends BaseService {
                 map(super.extractData),
                 catchError(super.serviceError));
     }
+    atualizarEndereco(endereco: Endereco): Observable<Endereco> {
+        return this.http
+            .put(this.UrlServiceV1 + "fornecedores/endereco/" + endereco.id, endereco, super.ObterAuthHeaderJson())
+            .pipe(
+                map(super.extractData),
+                catchError(super.serviceError));
+    }
 
     excluirFornecedor(id: string): Observable<Fornecedor> {
         return this.http
@@ -51,13 +58,7 @@ export class FornecedorService extends BaseService {
                 catchError(super.serviceError));
     }
 
-    atualizarEndereco(endereco: Endereco): Observable<Endereco> {
-        return this.http
-            .put(this.UrlServiceV1 + "fornecedores/endereco/" + endereco.id, endereco, super.ObterAuthHeaderJson())
-            .pipe(
-                map(super.extractData),
-                catchError(super.serviceError));
-    }
+   
 
     consultarCep(cep: string): Observable<CepConsulta> {
         return this.http

@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavegacaoModule } from './navegacao/navegacao.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     NavegacaoModule,
     NgbModule,
     HttpClientModule,
+    CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
